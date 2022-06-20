@@ -1,0 +1,25 @@
+thead {
+  border-bottom-width: 2px;
+}
+
+.crypto-logo {
+  width: 1.6rem;
+  margin: auto 1rem;
+}
+
+.table-row {
+  height: 2.4rem;
+}
+
+table {
+  width: 100%;
+
+  td {
+    &.up {
+      color: green;
+    }
+    &.down {
+      color: red;
+    }
+  }
+}

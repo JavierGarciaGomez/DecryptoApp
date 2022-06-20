@@ -1,0 +1,54 @@
+<div class="input-group">
+  <input
+    [matAutocomplete]="auto"
+    type="text"
+    class="form-control"
+    placeholder="Search"
+    [(ngModel)]="searchTerm"
+    (input)="searching()"
+    aria-label="Search cryptocurrency"
+  />
+  <div class="input-group-append">
+    <button class="btn btn-secondary" type="button" (click)="filterCoins()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-search"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+        />
+      </svg>
+    </button>
+  </div>
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    panelWidth="auto"
+    (optionSelected)="selectCoin($event)"
+  >
+    <mat-option *ngFor="let cryptocoin of results" [value]="cryptocoin">
+      <div class="d-flex justify-content-between">
+        <img [src]="cryptocoin.image" class="crypto-logo" alt="" />
+        <div class="d-flex justify-content-between w-100">
+          <div class="mr-5">
+            {{ cryptocoin.name ? cryptocoin.name : "" }} &nbsp;
+            <span class="font-weight-bold"
+              >({{ cryptocoin.symbol | uppercase }})</span
+            >
+          </div>
+          <div>#{{ cryptocoin.market_cap_rank }}</div>
+        </div>
+      </div>
+    </mat-option>
+
+    <mat-option
+      value=""
+      *ngIf="results.length === 0 && searchTerm.trim().length > 0"
+    >
+      We couldn't find any cryptocoin with the name {{ searchTerm }}
+    </mat-option>
+  </mat-autocomplete>
+</div>

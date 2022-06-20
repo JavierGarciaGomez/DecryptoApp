@@ -1,0 +1,117 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-5">
+  <div *ngIf="!cryptocoin; else divMain">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-template #divMain>
+    <header class="crypto-header mb-3">
+      <a
+        [href]="cryptocoin.links.homepage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div
+          class="row justify-content-around align-items-center p-2 no-gutters"
+        >
+          <div class="crypto-header__logo-container col-3">
+            <img
+              [src]="cryptocoin.image.large"
+              alt=""
+              class="crypto-header__logo align-items-center"
+            />
+          </div>
+          <h1 class="crypto-header__heading col-8">
+            {{ cryptocoin.name }} &nbsp;
+            <span class="font-weight-bold"
+              >({{ cryptocoin.symbol | uppercase }})</span
+            >
+          </h1>
+        </div>
+      </a>
+    </header>
+
+    <section class="crypto-stats">
+      <div class="row justify-content-around">
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card one">
+            <h2>Current price</h2>
+            <div class="crypto-card--data">
+              {{ cryptocoin.market_data.current_price["usd"] | currency }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card two">
+            <h2>Day price change</h2>
+            <div
+              [ngClass]="
+                cryptocoin.market_data.price_change_percentage_24h > 0
+                  ? 'up crypto-card--data'
+                  : 'down crypto-card--data'
+              "
+            >
+              {{
+                cryptocoin.market_data.price_change_percentage_24h / 100
+                  | percent: "1.2"
+              }}
+              <mat-icon class="ml-1 ml-sm-2">{{
+                cryptocoin.market_data.price_change_percentage_24h > 0
+                  ? "trending_up"
+                  : "trending_down"
+              }}</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card three">
+            <h2>Highest value</h2>
+            <div class="crypto-card--data">
+              {{ cryptocoin.market_data.ath["usd"] | currency }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card four">
+            <h2>Market cap (MM)</h2>
+            <div class="crypto-card--data">
+              {{
+                cryptocoin.market_data.market_cap["usd"] / 1000000
+                  | currency: "USD":"symbol":"1.0-0"
+              }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card five">
+            <h2>Market cap rank</h2>
+            <div class="crypto-card--data">
+              # {{ cryptocoin.market_cap_rank }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4 px-5 p-sm-1">
+          <div class="crypto-card six">
+            <h2>CoinGecko score</h2>
+            <div class="crypto-card--data">
+              {{ cryptocoin.coingecko_score | number: "1.2-2" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="crypto-description">
+      <div class="row">
+        <div class="col">
+          <div [innerHTML]="cryptocoin.description.en" class=""></div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+</div>
