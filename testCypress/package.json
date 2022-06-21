@@ -1,0 +1,18 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "cypress:open": "cypress open",
+    "cypress:runDefault": "cypress run --spec cypress/integration/pom/*.spec.js",
+    "cypress:runChrome": "cypress run --browser chrome --spec cypress/integration/pom/*.spec.js",
+    "cypress:runChromeHeadless": "cypress run --headless --browser chrome --spec cypress/integration/pom/*.spec.js --record --key 4bc50df7-5eee-4147-8eb3-ccea611c8d4b"
+  },
+  "author": "Javier Humberto García Gómez",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^10.1.0"
+  }
+}
